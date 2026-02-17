@@ -20,6 +20,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov
+
+    - name: Show repository files (debug)
+      run: |
+        echo "Repository root: $GITHUB_WORKSPACE"
+        ls -la
+        ls -la app || true
+
+    - name: Ensure PYTHONPATH includes repository root
+      run: |
+        echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+
     - name: Run tests with coverage
       run: |
         pytest --cov=app tests/
